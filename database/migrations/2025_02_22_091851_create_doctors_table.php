@@ -16,10 +16,12 @@ return new class extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('specialization');
+            $table->string('license_number')->unique();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

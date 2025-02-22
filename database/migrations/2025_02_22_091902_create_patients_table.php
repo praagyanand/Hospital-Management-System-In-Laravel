@@ -12,12 +12,17 @@ return new class extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('patients', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('appointments', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('patient_id')->constrained()->onDelete('cascade');
+        $table->foreignId('doctor_id')->constrained()->onDelete('cascade');
+        $table->dateTime('appointment_date');
+        $table->enum('status', ['booked', 'canceled', 'completed']);
+        $table->text('notes')->nullable();
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
